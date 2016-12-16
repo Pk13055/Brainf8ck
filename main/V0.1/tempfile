@@ -1,17 +1,25 @@
 #include<iostream>
 #include<fstream>
+#include<vector>
 using namespace std;
 
-//typedef traits::pos_type pos_type;
 ifstream fin;
+int mainptr=0;
+char filename[255];
+int arrmain[1000];
+
+void printer() {
+	char ch;
+	cout<<"\n Do you want to view the contents of the stack (y/n) : ";
+	cin>>ch;
+	if(ch=='y') for(int i=0;i<mainptr;cout<<i<<" : "arrmain[i++]<<endl);
+}
+
 
 main() {
-	int arrmain[1000];
+
 //	pos_type startstack[500],endstack[500];
 //	int startptr=0,endptr=0;
-	for(int i=0;i<1000;arrmain[i++]=0);
-	int mainptr=0;
-	char filename[33];
 	cout<<"\n Enter the filename : ";
 	cin>>filename;
 	fin.open(filename);
@@ -52,7 +60,7 @@ main() {
 		}
 		if(flag) { cout<<endl<<"Array out of index"<<endl; break; }
 	}
-	for(int i=0;i<=mainptr;cout<<arrmain[i++]<<" ");
+	if(!flag) printer();
 	fin.close();
 	return 0;
 }
