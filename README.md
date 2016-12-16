@@ -5,9 +5,9 @@
 
 ## Other things to be added later on
 
-* [] Basic file compilation features to be added. 
-* [] Loops also to be added, logic either file manip or stack manip.
+* Basic file compilation features to be added. 
+* Loops also to be added, logic either file manip or stack manip.
 
 
-## [] Testing to be done as well
+## Testing to be done as well
 
