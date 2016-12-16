@@ -1,10 +1,11 @@
 /**
-*  	Version 0.1
-*  	- Uses arrays for both the instruction set and bit set.
-*  	- Bit set and instrc size both statically set
-*  	- Loops are functional 
-*	- Not mem optimized
-**/
+ *  	Version 0.1
+ *  	- Uses arrays for both the instruction set and bit set.
+ *  	- Bit set and instrc size both statically set
+ *  	- Loops are functional 
+ *	- Not mem optimized
+ *	- ASCII mem. blocks
+ **/
 
 #include<iostream>
 #include<fstream>
@@ -21,15 +22,20 @@ using namespace std;
 #define clear() printf("\033[H\033[J")
 
 class Manager {
-	//vector<int> arrmain;
-	//vector<char> instrset;
-	short int arrmain[ARR_SIZE];
-	char instrset[INST_SIZE];
-	int mainptr;
+	
 	fstream fin;
 	char filename[256];
- 	void flush();
- public:
+	void flush();
+	void printinstr();
+
+protected:
+
+	short int arrmain[ARR_SIZE];
+	char instrset[INST_SIZE];
+	int mainptr,errorflag;
+
+public:
+
 	void printer();
 	Manager();
 	~Manager() { fin.close(); }
@@ -40,7 +46,7 @@ class Manager {
 Manager::Manager() {
 
 	flush();
-	mainptr=0;
+	mainptr=errorflag=0;
 	cout<<"\n Enter the filename : ";
 	cin>>filename;
 	fin.open(filename);
@@ -49,22 +55,32 @@ Manager::Manager() {
 }
 
 void Manager::flush() {
+
 	for(int i=0;i<INST_SIZE;instrset[i++]='\0');
 	for(int i=0;i<ARR_SIZE; arrmain[i++]=0);
 }
 
 void Manager::printer() {
+
 	for(int i=0;i<=mainptr;cout<<arrmain[i++]);
 	cout<<endl;
 }
+
+void Manager::printinstr() {
+
+	for(int i=0;instrset[i]!='\0';cout<<instrset[i++]<<" ");
+	cout<<endl;
+}
+
 void Manager::load_instrset() {
 
 	fin.seekg(0,ios::end);
+	cout<<fin.tellp()<<endl;
 	char ch='y';
 	if(fin.tellp()>INST_SIZE) {
 		cout<<"\n Instruction set exceedes instrc. mem. size."
-		    <<"\n Partially Load \? (y/n) : ";
-	        cin>>ch;
+			<<"\n Partially Load \? (y/n) : ";
+		cin>>ch;
 	}
 	if(ch!='n') {
 		int i=0;
@@ -75,13 +91,37 @@ void Manager::load_instrset() {
 }	
 
 void Manager::begin_exec() {
-	
 
+	int i=0;
+	while(instrset[i]) 
+		switch(instrset[i++]) {
+			case '+' : arrmain[mainptr]++;
+				   break;
+			case '-' : if(!arrmain[mainptr]) arrmain[mainptr]=256;
+					   arrmain[mainptr]--;
+				   break;
+			case '>' : if(mainptr==ARR_SIZE-1) { errorflag=1; break; }
+					   mainptr++;
+				   break;
+			case '<' : if(!mainptr) { errorflag=-1; break; }
+					   mainptr--;
+				   break;
+			case '.' : cout<<(char)arrmain[mainptr];
+				   break;
+			case ',' : cout<<"\n Enter your input"<<endl<<"(A-Z / 0-9) : ";
+				   char temp;
+				   cin>>temp;
+				   arrmain[mainptr]=(int)temp;
+				   break;
+			case '[' : break; 
+			case ']' : break;
+			default	 : break;
+		}
+	if(errorflag) cout<<"Array out of index";
 }
 
-
 main() {
-	
+
 	Manager m;
 	short int choice;
 	do 
@@ -102,6 +142,8 @@ main() {
 			case 4 : break;
 			default: cout<<"\n Invalid Option";	break;
 		}
+		if(choice!=4) { cout<<"\n Press any key to continue. "; char ch; cin>>ch; }
 	} while(choice!=4);
 	return 0;
+
 }
