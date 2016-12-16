@@ -1,2 +1,2 @@
-temp1 :  Manager.h comp0.1.cpp mainprog.cpp
-		g++ comp0.1.cpp mainprog.cpp -o temp1
+temp1 :  classdef.h funcdef.cpp main.cpp
+		g++ funcdef.cpp main.cpp -o temp1

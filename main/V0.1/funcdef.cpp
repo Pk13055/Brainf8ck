@@ -8,38 +8,9 @@
  **/
 
 #include<iostream>
-#include"Manager.h"
+#include"classdef.h"
 using namespace std;
 
-//control size of instruction set 
-#define INST_SIZE 10000
-
-//control size of main bit array 
-#define ARR_SIZE 1000
-
-/*
-class Manager {
-	
-	fstream fin;
-	char filename[256];
-	void flush();
-	void printinstr();
-
-protected:
-
-	short int arrmain[ARR_SIZE];
-	char instrset[INST_SIZE];
-	int mainptr,errorflag;
-
-public:
-
-	void printer();
-	Manager();
-	~Manager() { fin.close(); }
-	void load_instrset();
-	void begin_exec();
-};
-*/
 
 Manager::Manager() {
 

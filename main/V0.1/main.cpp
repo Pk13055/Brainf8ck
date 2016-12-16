@@ -1,5 +1,5 @@
 #include<iostream>
-#include"Manager.h"
+#include"classdef.h"
 #define clear() std::cout<<"\033[H\033[J"
 
 main() {
@@ -13,7 +13,7 @@ main() {
 			 <<"| 1. Load Instruction | "<<std::endl
 			 <<"| 2. Begin Execution  | "<<std::endl
 			 <<"| 3. Show bit array   | "<<std::endl
-			 <<"| 4. Exit		  | "<<std::endl
+			 <<"| 4. Exit             | "<<std::endl
 			 <<"| 5. Show Instruction | "<<std::endl
 			 <<"+---------------------+ "<<std::endl
 			 <<"	 Choice : ";
