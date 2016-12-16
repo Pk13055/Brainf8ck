@@ -8,9 +8,7 @@
  **/
 
 #include<iostream>
-#include<fstream>
-#include<vector>
-
+#include"Manager.h"
 using namespace std;
 
 //control size of instruction set 
@@ -19,8 +17,7 @@ using namespace std;
 //control size of main bit array 
 #define ARR_SIZE 1000
 
-#define clear() printf("\033[H\033[J")
-
+/*
 class Manager {
 	
 	fstream fin;
@@ -42,6 +39,7 @@ public:
 	void load_instrset();
 	void begin_exec();
 };
+*/
 
 Manager::Manager() {
 
@@ -53,6 +51,8 @@ Manager::Manager() {
 	if(fin.good()) cout<<"\n File read successful.";
 	else cout<<"\n File failed to load.";
 }
+
+Manager::~Manager() { fin.close(); }
 
 void Manager::flush() {
 
@@ -75,16 +75,16 @@ void Manager::printinstr() {
 void Manager::load_instrset() {
 
 	fin.seekg(0,ios::end);
-	cout<<fin.tellp()<<endl;
+	cout<<fin.tellg()<<endl; //for debugging
 	char ch='y';
-	if(fin.tellp()>INST_SIZE) {
+	if(fin.tellg()>INST_SIZE) {
 		cout<<"\n Instruction set exceedes instrc. mem. size."
 			<<"\n Partially Load \? (y/n) : ";
 		cin>>ch;
 	}
 	if(ch!='n') {
 		int i=0;
-		fin.seekp(0,ios::beg);
+		fin.seekg(0,ios::beg);
 		while(!fin.eof()&&i<1000) fin>>instrset[i++];
 		cout<<"\n Instruction set loaded successfully.";
 	}	
@@ -117,33 +117,7 @@ void Manager::begin_exec() {
 			case ']' : break;
 			default	 : break;
 		}
-	if(errorflag) cout<<"Array out of index";
-}
-
-main() {
-
-	Manager m;
-	short int choice;
-	do 
-	{
-		clear();
-		cout	<<"+----- Main Menu -----+ "<<endl
-			<<"| 1. Load Instruction | "<<endl
-			<<"| 2. Begin Execution  | "<<endl
-			<<"| 3. Show bit array   | "<<endl
-			<<"| 4. Exit		 | "<<endl
-			<<"+---------------------+ "<<endl
-			<<"	 Choice : ";
-		cin>>choice;
-		switch(choice) {
-			case 1 : m.load_instrset(); 		break;
-			case 2 : m.begin_exec(); 		break;
-			case 3 : m.printer(); 			break;
-			case 4 : break;
-			default: cout<<"\n Invalid Option";	break;
-		}
-		if(choice!=4) { cout<<"\n Press any key to continue. "; char ch; cin>>ch; }
-	} while(choice!=4);
-	return 0;
+	if(errorflag) cout<<"Array out of index"<<endl;
 
 }
+
