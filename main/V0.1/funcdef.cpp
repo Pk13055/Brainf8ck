@@ -27,7 +27,7 @@ Manager::~Manager() { fin.close(); }
 
 void Manager::flush() {
 
-	for(int i=0;i<INST_SIZE;instrset[i++]='\0');
+	instrset.clear();
 	for(int i=0;i<ARR_SIZE; arrmain[i++]=0);
 }
 
@@ -39,7 +39,7 @@ void Manager::printer() {
 
 void Manager::printinstr() {
 
-	for(int i=0;instrset[i]!='\0';cout<<instrset[i++]<<" ");
+	for(vector<char>::iterator i=instrset.begin(); i!=instrset.end(); cout<<*i++<<" ");
 	cout<<endl;
 }
 
@@ -48,7 +48,7 @@ void Manager::load_instrset() {
 	fin.seekg(0,ios::end);
 	cout<<fin.tellg()<<endl; //for debugging
 	char ch='y';
-	if(fin.tellg()>INST_SIZE) {
+	if((int)fin.tellg()>INST_SIZE) {
 		cout<<"\n Instruction set exceedes instrc. mem. size."
 			<<"\n Partially Load \? (y/n) : ";
 		cin>>ch;
@@ -56,16 +56,16 @@ void Manager::load_instrset() {
 	if(ch!='n') {
 		int i=0;
 		fin.seekg(0,ios::beg);
-		while(!fin.eof()&&i<1000) fin>>instrset[i++];
+		while(!fin.eof()&&i<1000) { fin>>ch; instrset.push_back(ch); }
 		cout<<"\n Instruction set loaded successfully.";
 	}	
 }	
 
 void Manager::begin_exec() {
 
-	int i=0;
-	while(instrset[i]) 
-		switch(instrset[i++]) {
+	vector<char>::iterator i=instrset.begin();
+	while(i!=instrset.end()) 
+		switch(*i++) {
 			case '+' : arrmain[mainptr]++;
 				   break;
 			case '-' : if(!arrmain[mainptr]) arrmain[mainptr]=256;

@@ -1,5 +1,6 @@
 
 #include<fstream>
+#include<vector>
 
 //control size of instruction set 
 #define INST_SIZE 10000
@@ -21,7 +22,7 @@ class Manager {
 	protected:
 
 	short int arrmain[ARR_SIZE];
-	char instrset[INST_SIZE];
+	std::vector<char> instrset;
 	int mainptr,errorflag;
 
 	public:
