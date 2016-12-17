@@ -14,6 +14,8 @@ class Manager {
 	std::ifstream fin;
 	char filename[256];
 	void flush();
+	std::vector<int> beginstack;
+	std::vector<int> endstack;	
 	
 	public:
 	
