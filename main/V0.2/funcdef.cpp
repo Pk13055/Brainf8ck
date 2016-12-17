@@ -1,9 +1,9 @@
 /**
- *  	Version 0.1
+ *  	Version 0.2
  *  	- Uses arrays for both the instruction set and bit set.
  *  	- Bit set and instrc size both statically set
  *  	- Loops are functional 
- *	- Not mem optimized
+ *	- Mem optmized in terms of instr. set
  *	- ASCII mem. blocks
  **/
 
@@ -46,9 +46,9 @@ void Manager::printinstr() {
 void Manager::load_instrset() {
 
 	fin.seekg(0,ios::end);
-	cout<<fin.tellg()<<endl; //for debugging
+	long long int  i = fin.tellg(); //for debugging
 	char ch='y';
-	if((int)fin.tellg()>INST_SIZE) {
+	if(i>INST_SIZE) {
 		cout<<"\n Instruction set exceedes instrc. mem. size."
 			<<"\n Partially Load \? (y/n) : ";
 		cin>>ch;
@@ -56,7 +56,7 @@ void Manager::load_instrset() {
 	if(ch!='n') {
 		int i=0;
 		fin.seekg(0,ios::beg);
-		while(!fin.eof()&&i<1000) { fin>>ch; instrset.push_back(ch); }
+		while(fin>>ch&&i<1000) instrset.push_back(ch);
 		cout<<"\n Instruction set loaded successfully.";
 	}	
 }	
