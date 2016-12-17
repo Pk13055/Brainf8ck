@@ -9,5 +9,6 @@
 * Loops also to be added, logic either file manip or stack manip.
 
 
-## Testing to be done as well
+## Testing [Tester link] (./lib)
+## Version Control [Version control] (./main/VERSION.md)
 
