@@ -1,4 +1,4 @@
-#Interpreter for Brainf*ck
+# Interpreter for Brainf*ck
 
 * Main formatting of symbols except for loops has been done
 * Testing of features to be done, optimization of code also to be done
