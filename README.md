@@ -5,9 +5,8 @@
 
 ## Other things to be added later on
 
-* Basic file compilation features to be added. 
 * Loops also to be added, logic either file manip or stack manip.
-
+* Basic file compilation features to be added. 
 
 ## Testing [Tester link] (./lib)
 ## Version Control [Version control] (./main/VERSION.md)
